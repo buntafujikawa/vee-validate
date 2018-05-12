@@ -21,6 +21,10 @@
       <span v-if="errors.has('regex')">{{ errors.first('regex') }}</span>
     </p>
 
+    <h4>test</h4>
+    <input type="text" @keyup="addEvent" v-model="text">
+    <p>{{ text }}</p>
+
     <button @click="register">Register</button>
   </div>
 
@@ -35,7 +39,8 @@
   export default {
     data() {
       return {
-        email: ''
+        email: '',
+        text: 'hoge'
       }
     },
     methods: {
@@ -45,9 +50,26 @@
         }).catch(() => {
           alert(this.errors.all())
         })
+      },
+      addEvent: function (e) {
+        e.preventDefault()
+        if (this.isValid) {
+          alert('hoge')
+        }else{
+          console.log("need edit")
+        }
+      },
+    },
+    computed: {
+      isValid: function () {
+        // 省略
+        return true
       }
     }
   }
+  new Vue({
+
+  });
 </script>
 
 <style>
