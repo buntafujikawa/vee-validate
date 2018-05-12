@@ -1,16 +1,29 @@
 <template>
-  <div>
-    <input
-      name="email"
-      v-model="email"
-      v-validate="'required|email'"
-      :class="{'has-error': errors.has('email')}">
-    <p v-if="errors.has('email')" class="alert-danger">
-      {{ errors.first('email') }}
+  <div id="app">
+    <h4>option: numeric and max:length</h4>
+    <p>
+      <input v-validate="'numeric|max:10'" type="text" name="num1">
+      <br>
+      <span v-if="errors.has('num1')">{{ errors.first('num1') }}</span>
+    </p>
+
+    <h4>option: numeric and max_value:value</h4>
+    <p>
+      <input v-validate="'max_value:10'" type="text" name="num2">
+      <br>
+      <span v-if="errors.has('num2')">{{ errors.first('num2') }}</span>
+    </p>
+
+    <h4>option: Regex: ^([0-9]+)$</h4>
+    <p>
+      <input v-validate="{ required: true, regex: /^([0-9]+)$/ }" name="regex">
+      <br>
+      <span v-if="errors.has('regex')">{{ errors.first('regex') }}</span>
     </p>
 
     <button @click="register">Register</button>
   </div>
+
 </template>
 
 <script>
@@ -20,13 +33,13 @@
   Vue.use(VeeValidate)
 
   export default {
-    data () {
+    data() {
       return {
         email: ''
       }
     },
     methods: {
-      register () {
+      register() {
         this.$validator.validateAll().then(() => {
           alert('Hello, ' + this.email)
         }).catch(() => {
@@ -41,6 +54,7 @@
   .alert-danger {
     color: red;
   }
+
   .has-error {
     border-color: red;
   }
