@@ -22,7 +22,7 @@
     </p>
 
     <h4>test</h4>
-    <input type="text" @keyup="addEvent" v-model="text">
+    <input type="text" @input="addEvent" v-model="input">
     <p>{{ text }}</p>
 
     <button @click="register">Register</button>
@@ -39,25 +39,26 @@
   export default {
     data() {
       return {
-        email: '',
-        text: 'hoge'
+        input: '',
+        text: ''
       }
     },
     methods: {
       register() {
-        this.$validator.validateAll().then(() => {
-          alert('Hello, ' + this.email)
-        }).catch(() => {
-          alert(this.errors.all())
-        })
+        // this.$validator.validateAll().then(() => {
+        //   alert('Hello, ' + this.email)
+        // }).catch(() => {
+        //   alert(this.errors.all())
+        // })
       },
       addEvent: function (e) {
-        e.preventDefault()
+        // e.preventDefault()
         if (this.isValid) {
-          alert('hoge')
+          this.text += this.input
         }else{
           console.log("need edit")
         }
+        this.input = ''
       },
     },
     computed: {
